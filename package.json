@@ -55,7 +55,7 @@
     "test": "node scripts/test.js --env=jsdom",
     "deploy": "gh-pages -d build"
   },
-  "homepage": ".",
+  "homepage": "",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
