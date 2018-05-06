@@ -115,13 +115,14 @@ export function merge(src, path, val) {
   });
 }
 
+// TODO: need review
 export function rearrange(src, path, val) {
-  const { sourceNoteIndex, targetNoteIndex } = val;
+  const { sourceIndex, targetIndex } = val;
   return set(src, path, (curVal) => {
     const copyArr = [...curVal];
-    const movingItem = curVal[sourceNoteIndex];
-    copyArr.splice(sourceNoteIndex, 1);
-    copyArr.splice(targetNoteIndex, 0, movingItem);
+    const movingItem = curVal[sourceIndex];
+    copyArr.splice(sourceIndex, 1);
+    copyArr.splice(targetIndex, 0, movingItem);
     return copyArr;
   });
 }
