@@ -115,13 +115,26 @@ export function merge(src, path, val) {
   });
 }
 
+/**
+ * Rearrange the order of an item in a list.
+ *
+ * @param src
+ * @param path
+ * @param val
+ * @returns {*}
+ */
+
+
+// TODO: need review
 export function rearrange(src, path, val) {
-  const { sourceNoteIndex, targetNoteIndex } = val;
+  invariant(!isEmpty(path), 'path is required for setting data');
+
+  const { sourceIndex, targetIndex } = val;
   return set(src, path, (curVal) => {
     const copyArr = [...curVal];
-    const movingItem = curVal[sourceNoteIndex];
-    copyArr.splice(sourceNoteIndex, 1);
-    copyArr.splice(targetNoteIndex, 0, movingItem);
+    const movingItem = curVal[sourceIndex];
+    copyArr.splice(sourceIndex, 1);
+    copyArr.splice(targetIndex, 0, movingItem);
     return copyArr;
   });
 }
