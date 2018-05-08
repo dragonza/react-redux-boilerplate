@@ -24,6 +24,7 @@
     "no-console": [1, { "allow": ["info", "warn", "error"] }],
     "radix": [1, "as-needed"],
     "arrow-parens": 0,
+    "linebreak-style": ["error", "windows"],
     "arrow-body-style": 0,
     "global-require": 0,
     "import/no-dynamic-require": 0,
@@ -42,6 +43,9 @@
       "components": [ "Link" ],
       "specialLink": [ "hrefLeft", "hrefRight", "to" ],
       "aspects": [ "noHref", "invalidHref", "preferButton" ]
+    }],
+    "jsx-a11y/no-autofocus": [ 2, {
+      "ignoreNonDOM": true
     }],
     "react/sort-comp": [2, {
       "order": [

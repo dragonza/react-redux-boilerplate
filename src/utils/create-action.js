@@ -27,7 +27,8 @@ export default function createAction(type, payloadCreator = v => v, metaCreator)
     const payload = finalPayLoadCreator(...args);
     const action = { type };
 
-    if (payload instanceof Error) {
+    if (!(payload instanceof Error)) { // eslint-disable-line
+    } else {
       action.error = true;
     }
 

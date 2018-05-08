@@ -115,8 +115,20 @@ export function merge(src, path, val) {
   });
 }
 
+/**
+ * Rearrange the order of an item in a list.
+ *
+ * @param src
+ * @param path
+ * @param val
+ * @returns {*}
+ */
+
+
 // TODO: need review
 export function rearrange(src, path, val) {
+  invariant(!isEmpty(path), 'path is required for setting data');
+
   const { sourceIndex, targetIndex } = val;
   return set(src, path, (curVal) => {
     const copyArr = [...curVal];
