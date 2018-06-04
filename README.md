@@ -6,9 +6,8 @@ The main packages includes:
 - Redux
 - Redux-Saga
 
-
 Below you will find some information on how to perform common tasks.<br>
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+
 
 ## Getting Started
 
@@ -19,4 +18,71 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 * `npm run deploy` - Deploys the contents of the `build/` directory below the **gh-pages** branch.
 * `npm run build` - Generate a production version under '/build'.
+
+## How it works
+
+The boilerplate comes with some immutability helper functions that help to update Redux store without writing so much redundant code for reducer.
+ 
+* `Set`: set a value (new or existing) to a particular path provided.
+```javascript
+const path = 'noteList';
+export const updateNote = (id, text) => {
+  return SET_DATA({
+    _path: `${path}.${id}.task`,
+    _value: text,
+  });
+};
+```
+* `Get`: get data from a path.
+
+```javascript
+const path = 'noteList';
+export const getNote = (id, text) => {
+  return GET_DATA({
+    _path: `${path}.${id}.task`,
+    _value: text,
+  });
+};
+```
+* `Remove`: Delete an array of items. Note: ids need to be an array.
+```javascript
+const path = 'noteList';
+export const deleteNote = (ids) => {
+  return REMOVE_DATA({
+    _path: path,
+    _value: ids,
+  });
+};
+```
+* `Merge`: Merges a value into a given source.
+```javascript
+const path = 'noteList';
+export const addNote = (text) => {
+  const id = Math.ceil(new Date());
+  return MERGE_DATA({
+    _path: `${path}.${id}`,
+    _value: {
+      id,
+      task: text,
+    },
+  });
+};
+```
+
+* `Rearrange`: rearrange an item to another position in a same list
+```javascript
+const path = 'laneList';
+export const arrangeNote = ({ sourceNoteIndex, targetNoteIndex, laneId }) => {
+  return REARRANGE_DATA({
+    _path: `${path}.${laneId}.notes`,
+    _value: {
+      sourceIndex: sourceNoteIndex,
+      targetIndex: targetNoteIndex,
+    },
+  });
+};
+```
+
+## Notes:
+This boilerplate is inspired by https://github.com/mvtnghia/web-boilerplate
 

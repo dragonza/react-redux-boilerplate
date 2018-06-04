@@ -127,7 +127,8 @@ export function merge(src, path, val) {
 
 // TODO: need review
 export function rearrange(src, path, val) {
-  invariant(!isEmpty(path), 'path is required for setting data');
+  invariant(!isEmpty(path), 'path is required');
+  invariant(!isEmpty(val), 'val needs to include sourceIndex and targetIndex');
 
   const { sourceIndex, targetIndex } = val;
   return set(src, path, (curVal) => {
