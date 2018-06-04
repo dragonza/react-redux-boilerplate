@@ -21,10 +21,11 @@ Below you will find some information on how to perform common tasks.<br>
 
 ## How it works
 
-The boilerplate comes with some immutability helper functions that help to update Redux store without writing so much redundant code for reducer.
+The boilerplate comes with some immutability helper functions that help to update Redux store without writing so much redundant code for reducersSS.
  
 * `Set`: set a value (new or existing) to a particular path provided.
 ```javascript
+import { SET_DATA } from './action/note-action';
 const path = 'noteList';
 export const updateNote = (id, text) => {
   return SET_DATA({
@@ -36,6 +37,7 @@ export const updateNote = (id, text) => {
 * `Get`: get data from a path.
 
 ```javascript
+import { GET_DATA } from './action/note-action';
 const path = 'noteList';
 export const getNote = (id, text) => {
   return GET_DATA({
@@ -46,6 +48,7 @@ export const getNote = (id, text) => {
 ```
 * `Remove`: Delete an array of items. Note: ids need to be an array.
 ```javascript
+import { REMOVE_DATA } from './action/note-action';
 const path = 'noteList';
 export const deleteNote = (ids) => {
   return REMOVE_DATA({
@@ -54,8 +57,9 @@ export const deleteNote = (ids) => {
   });
 };
 ```
-* `Merge`: Merges a value into a given source.
+* `Merge`: merge a value into a given source.
 ```javascript
+import { MERGE_DATA } from './action/note-action';
 const path = 'noteList';
 export const addNote = (text) => {
   const id = Math.ceil(new Date());
@@ -71,6 +75,7 @@ export const addNote = (text) => {
 
 * `Rearrange`: rearrange an item to another position in a same list
 ```javascript
+import { REARRANGE_DATA } from './action/lane-action';
 const path = 'laneList';
 export const arrangeNote = ({ sourceNoteIndex, targetNoteIndex, laneId }) => {
   return REARRANGE_DATA({
