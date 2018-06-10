@@ -21,7 +21,7 @@ Below you will find some information on how to perform common tasks.<br>
 
 ## How it works
 
-The boilerplate comes with some immutability helper functions that help to update Redux store without writing so much redundant code for reducersSS.
+The boilerplate comes with some immutability helper functions that help to update Redux store without writing so much redundant code for reducers.
  
 * `Set`: set a value (new or existing) to a particular path provided.
 ```javascript
