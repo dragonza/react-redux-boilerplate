@@ -88,6 +88,47 @@ export const arrangeNote = ({ sourceNoteIndex, targetNoteIndex, laneId }) => {
 };
 ```
 
+## Create new actions and reducers
+You can add your own actions and reducers when needed. The flow is the same as working in a typical redux project.
+Add your reducers in the `root-reducers.js`
+
+```javascript
+// Put new reducers here
+const reducers = {
+  router: routerReducer,
+  newReducers,
+};
+```
+
+You can also create your own data-action in `data-action.js`.
+First, create your actions
+
+```javascript
+export const dataActionConst = {
+  SET_DATA: 'SET_DATA',
+  GET_DATA: 'GET_DATA',
+  REMOVE_DATA: 'REMOVE_DATA',
+  MERGE_DATA: 'MERGE_DATA',
+  TOGGLE_DATA: 'TOGGLE_DATA',
+  REARRANGE_DATA: 'REARRANGE_DATA',
+  // new action here
+  NEW_ACTION_DATA: 'NEW_ACTION_DATA',
+};
+export const SET_DATA = createDataAction(dataActionConst.SET_DATA);
+export const REMOVE_DATA = createDataAction(dataActionConst.REMOVE_DATA);
+// create new data action
+export const NEW_ACTION_DATA = createDataAction(dataActionConst.NEW_ACTION_DATA);
+```
+
+Then create your helper function in `immutable.js`.
+
+```javascript
+export function new_action(src, path, val) {
+  //your code here
+}
+```
+*Note*: The name of the new action has to match the helper function name. Otherwise, it will not work as expected.
+
 ## Notes:
 This boilerplate is inspired by https://github.com/mvtnghia/web-boilerplate
 
