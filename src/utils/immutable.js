@@ -1,4 +1,11 @@
-import { isArray, isFunction, isNumber, isObject, isEmpty, isUndefined } from './is';
+import {
+  isArray,
+  isFunction,
+  isNumber,
+  isObject,
+  isEmpty,
+  isUndefined
+} from './is';
 import invariant from './invariant';
 import { removeItems } from './object';
 
@@ -23,7 +30,6 @@ function getArrayIndex(head) {
   return head;
 }
 
-
 /**
  * Set a value. Check merge for multiple values
  * @param src The object to evaluate.
@@ -35,11 +41,17 @@ export function set(src, path, value) {
   const pathArr = pathToArray(path);
 
   const setImmutable = (obj, pathList, val) => {
-    if (!pathList.length) return isFunction(value) ? val(obj, pathList[0]) : val;
+    if (!pathList.length) {
+      return isFunction(value) ? val(obj, pathList[0]) : val;
+    }
     const isArr = isArray(obj);
     const clone = isArr ? obj.slice() : Object.assign({}, obj);
     const curPath = isArr ? getArrayIndex(pathList[0]) : pathList[0];
-    clone[curPath] = setImmutable(!isUndefined(obj[curPath]) ? obj[curPath] : {}, pathList.slice(1), val);
+    clone[curPath] = setImmutable(
+      !isUndefined(obj[curPath]) ? obj[curPath] : {},
+      pathList.slice(1),
+      val
+    );
     return clone;
   };
 
@@ -70,19 +82,22 @@ export function get(src, path) {
  */
 export function remove(src, path, _ids) {
   invariant(arguments.length >= 3, 'src, path and _ids are required');
-  invariant(isArray(_ids), `Expected _ids to be an array but got ${typeof _ids}`);
+  invariant(
+    isArray(_ids),
+    `Expected _ids to be an array but got ${typeof _ids}`
+  );
   if (isEmpty(path)) {
-    if (isArray(src)) return src.filter((i) => !_ids.includes(i));
+    if (isArray(src)) return src.filter(i => !_ids.includes(i));
     if (isObject(src)) return removeItems(src, _ids);
     return src;
   }
 
   if (isUndefined(get(src, path))) return src;
 
-  return set(src, path, (val) => {
+  return set(src, path, val => {
     if (isArray(val)) {
       // invariant(!(_ids.some((id) => !isNumber(id))), 'Array index has to be an integer');
-      return val.filter((v) => !_ids.includes(v));
+      return val.filter(v => !_ids.includes(v));
     } else if (isObject(val)) {
       const idStrList = _ids.map(String);
       return Object.keys(val).reduce((result, k) => {
@@ -103,7 +118,7 @@ export function remove(src, path, _ids) {
  * @param val The value to merge into the target value.
  */
 export function merge(src, path, val) {
-  return set(src, path, (curVal) => {
+  return set(src, path, curVal => {
     if (curVal === null || isUndefined(curVal)) {
       return val;
     } else if (isArray(curVal)) {
@@ -124,14 +139,13 @@ export function merge(src, path, val) {
  * @returns {*}
  */
 
-
 // TODO: need review
 export function rearrange(src, path, val) {
   invariant(!isEmpty(path), 'path is required');
   invariant(!isEmpty(val), 'val needs to include sourceIndex and targetIndex');
 
   const { sourceIndex, targetIndex } = val;
-  return set(src, path, (curVal) => {
+  return set(src, path, curVal => {
     const copyArr = [...curVal];
     const movingItem = curVal[sourceIndex];
     copyArr.splice(sourceIndex, 1);

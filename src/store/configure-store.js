@@ -12,11 +12,16 @@ export default function configureStore({ history }) {
   const sagaMiddleware = createSagaMiddleware();
   const routeMiddleWare = routerMiddleware(history);
   const reduxDEC = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-  const composeEnhancers = (process.env.NODE_ENV !== 'production' && reduxDEC) ? reduxDEC({}) : compose;
-  const store = createStore(rootReducer, defaultState, composeEnhancers(
-    applyMiddleware(...middleware, routeMiddleWare, sagaMiddleware),
-    localStorageEnhancer(),
-  ));
+  const composeEnhancers =
+    process.env.NODE_ENV !== 'production' && reduxDEC ? reduxDEC({}) : compose;
+  const store = createStore(
+    rootReducer,
+    defaultState,
+    composeEnhancers(
+      applyMiddleware(...middleware, routeMiddleWare, sagaMiddleware),
+      localStorageEnhancer()
+    )
+  );
   sagaMiddleware.run(rootSaga);
 
   return store;

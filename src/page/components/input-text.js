@@ -3,25 +3,25 @@ import PropTypes from 'prop-types';
 
 export default class InputText extends Component {
   state = {
-    text: this.props.text || '',
+    text: this.props.text || ''
   };
 
-  handleOnChange = (e) => {
+  handleOnChange = e => {
     this.setState({
-      text: e.target.value,
+      text: e.target.value
     });
-  }
+  };
 
-  handleBlur = (e) => {
+  handleBlur = e => {
     this.props.onSave(e.target.value.trim());
-  }
+  };
 
-  handleSubmit =(e) => {
+  handleSubmit = e => {
     const text = e.target.value.trim();
     if (e.which === 13) {
       this.props.onSave(text);
     }
-  }
+  };
 
   renderComponent = (props, state) => {
     return (
@@ -36,7 +36,7 @@ export default class InputText extends Component {
         />
       </div>
     );
-  }
+  };
 
   render() {
     return this.renderComponent(this.props, this.state);
@@ -45,5 +45,5 @@ export default class InputText extends Component {
 
 InputText.propTypes = {
   onSave: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
 };

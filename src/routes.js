@@ -10,7 +10,7 @@ import Todo from './page';
 
 export default function Routes() {
   const history = createHistory({
-    basename: process.env.PUBLIC_URL,
+    basename: process.env.PUBLIC_URL
   });
 
   const store = configureStore({ history });
@@ -20,7 +20,7 @@ export default function Routes() {
         <Switch>
           <Route exact path="/" component={App} />
           <Route path="/todo" component={Todo} />
-          <Route component={() => (<div>404 Not found 1</div>)} />
+          <Route component={() => <div>404 Not found 1</div>} />
         </Switch>
       </ConnectedRouter>
     </Provider>

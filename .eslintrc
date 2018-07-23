@@ -8,7 +8,7 @@
   "error" or 2 - turn the rule on as an error (exit code is 1 when triggered)
 */
 {
-  "extends": ["airbnb"],
+  "extends": ["airbnb", "prettier"],
   "parser": "babel-eslint",
   "plugins": ["react"],
   "env": {
@@ -20,11 +20,12 @@
     "indent": [1, 2, { "SwitchCase": 1 }],
     "no-tabs": 0,
     "no-plusplus": 0,
+    "comma-dangle": ["error", "never"],
     "no-underscore-dangle": 0,
     "no-console": [1, { "allow": ["info", "warn", "error"] }],
     "radix": [1, "as-needed"],
     "arrow-parens": 0,
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": ["error", "unix"],
     "arrow-body-style": 0,
     "global-require": 0,
     "import/no-dynamic-require": 0,

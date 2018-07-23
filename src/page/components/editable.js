@@ -3,33 +3,32 @@ import classNames from 'classnames';
 import InputText from './input-text';
 
 export default class Editable extends Component {
-  renderEditing = (props) => {
-    return (
-      <InputText
-        text={props.value}
-        onSave={props.onSave}
-      />
-    );
-  }
+  renderEditing = props => {
+    return <InputText text={props.value} onSave={props.onSave} />;
+  };
 
-  renderView = (props) => {
+  renderView = props => {
     return (
-      <div onDoubleClick={() => props.onEdit()} className="note-task" title="Double click to edit">
-        { props.value }
+      <div
+        onDoubleClick={() => props.onEdit()}
+        className="note-task"
+        title="Double click to edit"
+      >
+        {props.value}
       </div>
     );
-  }
+  };
 
-  renderComponent = (props) => {
+  renderComponent = props => {
     const cls = classNames(props.className, {
-      editable: true,
+      editable: true
     });
     return (
       <div className={cls}>
-        { !props.editing ? this.renderView(props) : this.renderEditing(props) }
+        {!props.editing ? this.renderView(props) : this.renderEditing(props)}
       </div>
     );
-  }
+  };
 
   render() {
     return this.renderComponent(this.props, this.state);
