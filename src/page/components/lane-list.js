@@ -1,4 +1,5 @@
 import React from 'react';
+import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import LaneItem from './lane-item';
 
@@ -6,9 +7,16 @@ const LaneList = ({ laneList, className, onDeleteLane }) => {
   if (!laneList) return null;
   return (
     <ul className={className}>
-      {laneList.map(lane => (
-        <LaneItem key={lane.id} lane={lane} onDeleteLane={onDeleteLane} />
-      ))}
+      {laneList
+        .valueSeq()
+        .map(lane => (
+          <LaneItem
+            key={lane.get('id')}
+            lane={lane}
+            onDeleteLane={onDeleteLane}
+          />
+        ))}
+
     </ul>
   );
 };
@@ -16,7 +24,7 @@ const LaneList = ({ laneList, className, onDeleteLane }) => {
 LaneList.propTypes = {
   onDeleteLane: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
-  laneList: PropTypes.array.isRequired
+  laneList: PropTypes.instanceOf(Immutable.Map).isRequired
 };
 
 export default LaneList;

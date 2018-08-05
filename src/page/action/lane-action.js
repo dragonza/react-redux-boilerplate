@@ -1,7 +1,7 @@
 import {
   SET_DATA,
   REMOVE_DATA,
-  MERGE_DATA,
+  // MERGE_DATA,
   REARRANGE_DATA
 } from '../../store/data-action';
 
@@ -15,7 +15,6 @@ export const addLane = text => {
       id,
       name: text,
       notes: []
-    }
   });
 };
 
@@ -27,7 +26,7 @@ export const updateLane = (id, text) => {
 };
 
 export const attachNoteToLane = (laneId, noteId) => {
-  return MERGE_DATA({
+  return SET_DATA({
     _path: `${path}.${laneId}.notes`,
     _value: noteId
   });

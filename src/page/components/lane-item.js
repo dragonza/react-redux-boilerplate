@@ -33,7 +33,7 @@ class LaneItem extends Component {
 
   addNote = props => {
     const newTask = props.addNote('New Task');
-    props.attachNoteToLane(props.lane.id, newTask.payload.id);
+    props.attachNoteToLane(props.lane.get('id'), newTask.payload.id);
   };
 
   handleDeleteNote = (id, props) => {
@@ -69,7 +69,7 @@ class LaneItem extends Component {
             +
           </button>
           <Editable
-            value={lane.name}
+            value={lane.get('name')}
             editing={state.editing}
             onEdit={this.handleOnEdit}
             className="lane-header-item lane-editable"

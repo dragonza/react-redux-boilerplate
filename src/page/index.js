@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Immutable from 'immutable';
 import { bindActionCreators } from 'redux';
 import LaneList from './components/lane-list';
 import { makeLaneListSelector } from './selectors/selectors';
@@ -62,5 +63,5 @@ export default connect(
 Todo.propTypes = {
   addLane: PropTypes.func.isRequired,
   deleteLane: PropTypes.func.isRequired,
-  laneList: PropTypes.array.isRequired
+  laneList: PropTypes.instanceOf(Immutable.Map).isRequired
 };
