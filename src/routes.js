@@ -1,10 +1,10 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router/immutable';
 import createHistory from 'history/createBrowserHistory';
 
-import configureStore from './store/configure-store';
+import { configureStore } from './store/configure-store';
 import App from './app';
 import Todo from './page';
 
@@ -14,6 +14,7 @@ export default function Routes() {
   });
 
   const store = configureStore({ history });
+
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>

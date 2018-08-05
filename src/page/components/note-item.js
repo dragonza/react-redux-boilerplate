@@ -30,7 +30,7 @@ class NoteItem extends Component {
     return (
       <div className="note-item">
         <Editable
-          value={note.task}
+          value={note.get('task')}
           editing={state.editing}
           onEdit={this.handleOnEdit}
           onSave={(text) => this.handleSave(text)}

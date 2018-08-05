@@ -1,22 +1,27 @@
+import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { routerMiddleware } from 'react-router-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import localStorageEnhancer from './local-storage-enhancer';
 
-import middleware from '../middleware';
-import rootReducer from './root-reducer';
+import {
+  connectRouter,
+  routerMiddleware
+} from 'connected-react-router/immutable';
+// import Immutable from 'immutable';
 import rootSaga from './root-saga';
+import rootReducer from './root-reducer';
 import defaultState from './default-state';
 
-export default function configureStore({ history }) {
+// const rootReducer = combineReducers({ laneList: reducers });
+
+export function configureStore({ history }) {
   const sagaMiddleware = createSagaMiddleware();
-  const routeMiddleWare = routerMiddleware(history);
-  const reduxDEC = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-  const composeEnhancers = (process.env.NODE_ENV !== 'production' && reduxDEC) ? reduxDEC({}) : compose;
-  const store = createStore(rootReducer, defaultState, composeEnhancers(
-    applyMiddleware(...middleware, routeMiddleWare, sagaMiddleware),
-    localStorageEnhancer(),
-  ));
+
+  const composeEnhancer =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const store = createStore(
+    connectRouter(history)(rootReducer),
+    defaultState,
+    composeEnhancer(applyMiddleware(routerMiddleware(history), sagaMiddleware))
+  );
   sagaMiddleware.run(rootSaga);
 
   return store;
