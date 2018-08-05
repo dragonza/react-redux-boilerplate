@@ -13,6 +13,7 @@ export const updateNote = (id, text) => {
 export const addNote = text => {
   const id = Math.ceil(new Date()); // get random number
   return SET_DATA({
+
     _path: `${path}.${id}`,
     _value: {
       id,

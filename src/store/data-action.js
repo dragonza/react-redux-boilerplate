@@ -7,7 +7,7 @@ const dataMetaCreator = data => {
   invariant(!isEmpty(data._path), '_path is required');
   return { _path: data._path };
 };
-const createDataAction = (type) => {
+const createDataAction = type => {
   return createAction(type, dataPayloadCreator, dataMetaCreator);
 };
 
@@ -17,7 +17,7 @@ export const dataActionConst = {
   REMOVE_DATA: 'REMOVE_DATA',
   MERGE_DATA: 'MERGE_DATA',
   TOGGLE_DATA: 'TOGGLE_DATA',
-  REARRANGE_DATA: 'REARRANGE_DATA',
+  REARRANGE_DATA: 'REARRANGE_DATA'
 };
 
 export const SET_DATA = createDataAction(dataActionConst.SET_DATA);

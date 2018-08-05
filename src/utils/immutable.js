@@ -1,3 +1,4 @@
+
 import { Map, List } from 'immutable';
 
 function pathToArray(path) {
@@ -9,8 +10,10 @@ function pathToArray(path) {
     .replace(/@/g, '.')
     .split('*');
 }
+
 export function set(src, path, value) {
   const pathArr = pathToArray(path);
+
   // if the path end is undefined means that the value is not existed in the Map
   if (!src.getIn(pathArr)) {
     return src.mergeIn(pathArr, Map(value));
@@ -25,4 +28,5 @@ export function set(src, path, value) {
 // eslint-disable-next-line
 export function remove(src, path, arrayOfvalue) {
   return src;
+
 }

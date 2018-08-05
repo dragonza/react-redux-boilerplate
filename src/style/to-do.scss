@@ -1,3 +1,7 @@
+body {
+  padding: 8px;
+}
+
 
 ul {
   list-style: none;
@@ -12,6 +16,7 @@ button {
 
 input {
   max-width: 15rem;
+  font-size: 1.6rem;
 }
 
 .kanban-app {

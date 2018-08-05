@@ -33,7 +33,6 @@ function isEmpty(value) {
   return false;
 }
 
-
 export {
   isNumber,
   isString,
@@ -41,5 +40,5 @@ export {
   isArray,
   isObject,
   isEmpty,
-  isUndefined,
+  isUndefined
 };

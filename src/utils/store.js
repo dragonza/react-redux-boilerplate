@@ -7,7 +7,4 @@ function reduceReducers(...reducers) {
     reducers.reduce((result, reducer) => reducer(result, action), store);
 }
 
-export {
-  reduceReducers,
-};
-
+export { reduceReducers };

@@ -15,8 +15,6 @@ export const addLane = text => {
       id,
       name: text,
       notes: []
-    },
-    type: 'SET_TODO'
   });
 };
 

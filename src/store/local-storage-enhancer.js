@@ -1,4 +1,10 @@
-import { isArray, isString, isEmpty, isFunction, isUndefined } from '../utils/is';
+import {
+  isArray,
+  isString,
+  isEmpty,
+  isFunction,
+  isUndefined
+} from '../utils/is';
 
 /**
  * getSubsets returns an object with the same structure as the original object passed in,
@@ -19,10 +25,12 @@ function getSubsets(obj, paths) {
  * @return {Function} A slicer function, which returns the subset to store when called with Redux's store state.
  */
 function createSlicer(paths) {
-  if (isEmpty(paths)) return (state) => state;
-  if (isString(paths)) return (state) => getSubsets(state, [paths]);
-  if (isArray(paths)) return (state) => getSubsets(state, paths);
-  return console.error(`Expected paths to be String, Array or Void, but got ${typeof paths}`);
+  if (isEmpty(paths)) return state => state;
+  if (isString(paths)) return state => getSubsets(state, [paths]);
+  if (isArray(paths)) return state => getSubsets(state, paths);
+  return console.error(
+    `Expected paths to be String, Array or Void, but got ${typeof paths}`
+  );
 }
 
 function mergeState(initialState, persistedState) {
@@ -51,16 +59,14 @@ export default function localStorageEnhancer(paths, config) {
     slicer: createSlicer,
     serialize: JSON.stringify,
     deserialize: JSON.parse,
-    ...config,
+    ...config
   };
 
-  const {
-    key, merge, slicer, serialize, deserialize,
-  } = cfg;
+  const { key, merge, slicer, serialize, deserialize } = cfg;
 
   return next => (reducer, initialState, enhancer) => {
     if (isFunction(initialState) && isUndefined(enhancer)) {
-      enhancer = initialState;  //eslint-disable-line
+      enhancer = initialState; //eslint-disable-line
       initialState = undefined; //eslint-disable-line
     }
 

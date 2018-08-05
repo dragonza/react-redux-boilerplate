@@ -7,22 +7,21 @@ import Editable from './editable';
 
 class NoteItem extends Component {
   state = {
-    editing: false,
-  }
-
+    editing: false
+  };
 
   handleOnEdit = () => {
     this.setState({ editing: true });
-  }
+  };
 
-  handleSave = (text) => {
+  handleSave = text => {
     if (!text.length) {
       this.props.onDeleteNote([this.props.note.id]);
     }
 
     this.props.updateNote(this.props.note.id, text);
     this.setState({ editing: false });
-  }
+  };
 
   renderComponent = (props, state) => {
     const { note } = props;
@@ -33,12 +32,17 @@ class NoteItem extends Component {
           value={note.get('task')}
           editing={state.editing}
           onEdit={this.handleOnEdit}
-          onSave={(text) => this.handleSave(text)}
+          onSave={text => this.handleSave(text)}
         />
-        <button className="delete-note" onClick={() => props.onDeleteNote([note.id])}>x</button>
+        <button
+          className="delete-note"
+          onClick={() => props.onDeleteNote([note.id])}
+        >
+          x
+        </button>
       </div>
     );
-  }
+  };
 
   render() {
     return this.renderComponent(this.props, this.state);
@@ -47,15 +51,18 @@ class NoteItem extends Component {
 
 export default connect(
   () => ({}),
-  (dispatch) => {
-    return bindActionCreators({
-      updateNote,
-    }, dispatch);
-  },
+  dispatch => {
+    return bindActionCreators(
+      {
+        updateNote
+      },
+      dispatch
+    );
+  }
 )(NoteItem);
 
 NoteItem.propTypes = {
   onDeleteNote: PropTypes.func.isRequired,
   updateNote: PropTypes.func.isRequired,
-  note: PropTypes.object.isRequired,
+  note: PropTypes.object.isRequired
 };
