@@ -1,4 +1,5 @@
 import {
+  ADD_DATA,
   SET_DATA,
   REMOVE_DATA,
   // MERGE_DATA,
@@ -9,12 +10,13 @@ const path = 'laneList';
 
 export const addLane = text => {
   const id = Math.ceil(new Date());
-  return SET_DATA({
+  return ADD_DATA({
     _path: `${path}.${id}`,
     _value: {
       id,
       name: text,
       notes: []
+    }
   });
 };
 
@@ -26,7 +28,7 @@ export const updateLane = (id, text) => {
 };
 
 export const attachNoteToLane = (laneId, noteId) => {
-  return SET_DATA({
+  return ADD_DATA({
     _path: `${path}.${laneId}.notes`,
     _value: noteId
   });

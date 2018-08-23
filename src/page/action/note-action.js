@@ -1,4 +1,4 @@
-import { SET_DATA, REMOVE_DATA } from '../../store/data-action';
+import { SET_DATA, REMOVE_DATA, ADD_DATA } from '../../store/data-action';
 
 // get we get dynamic path?
 const path = 'noteList';
@@ -12,8 +12,7 @@ export const updateNote = (id, text) => {
 
 export const addNote = text => {
   const id = Math.ceil(new Date()); // get random number
-  return SET_DATA({
-
+  return ADD_DATA({
     _path: `${path}.${id}`,
     _value: {
       id,

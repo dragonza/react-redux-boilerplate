@@ -26,7 +26,7 @@ class LaneItem extends Component {
   handleSave = text => {
     if (!text.length) return null;
     const { lane } = this.props;
-    this.props.updateLane(lane.id, text);
+    this.props.updateLane(lane.get('id'), text);
     this.setState({ editing: false });
     return true;
   };
