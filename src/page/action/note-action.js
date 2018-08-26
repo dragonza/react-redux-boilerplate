@@ -1,6 +1,6 @@
+import { Map } from 'immutable';
 import { SET_DATA, REMOVE_DATA, ADD_DATA } from '../../store/data-action';
 
-// get we get dynamic path?
 const path = 'noteList';
 
 export const updateNote = (id, text) => {
@@ -14,10 +14,10 @@ export const addNote = text => {
   const id = Math.ceil(new Date()); // get random number
   return ADD_DATA({
     _path: `${path}.${id}`,
-    _value: {
+    _value: Map({
       id,
       task: text
-    }
+    })
   });
 };
 

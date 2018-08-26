@@ -33,19 +33,19 @@ class LaneItem extends Component {
 
   addNote = props => {
     const newTask = props.addNote('New Task');
-    props.attachNoteToLane(props.lane.get('id'), newTask.payload.id);
+    props.attachNoteToLane(props.lane.get('id'), newTask.payload.get('id'));
   };
 
   handleDeleteNote = (id, props) => {
     const { lane } = props;
     props.deleteNote(id);
-    props.detachFromLane(lane.id, id);
+    props.detachFromLane(lane.get('id'), id);
   };
 
   deleteLane = props => {
     const { lane } = props;
-    props.onDeleteLane(lane.id);
-    lane.notes.forEach(note => props.deleteNote([note]));
+    props.onDeleteLane(lane.get('id'));
+    lane.get('notes').forEach(note => props.deleteNote([note]));
   };
 
   handleMoveNote = payload => {

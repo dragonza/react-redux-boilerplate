@@ -30,7 +30,22 @@ export function set(src, path, newVal) {
   return src.setIn(pathArr, newVal);
 }
 
-// eslint-disable-next-line
-export function remove(src, path, arrayOfvalue) {
+export function remove(src, path, arrayOfValue) {
+  const pathArr = pathToArray(path);
+  // return src.deleteIn([pathArr, String(arrayOfvalue[0])]);
+
+  if (Map.isMap(src.getIn(pathArr))) {
+    return arrayOfValue.reduce((result, next) => {
+      return result.deleteIn([...pathArr, next]);
+    }, src);
+  }
+
+  if (List.isList(src.getIn(pathArr))) {
+    const node = src.getIn(pathArr);
+    const newNode = node.filter(val => !arrayOfValue.includes(val));
+    return src.updateIn(pathArr, () => List(newNode));
+    // return
+  }
+
   return src;
 }

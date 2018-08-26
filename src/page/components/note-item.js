@@ -16,10 +16,10 @@ class NoteItem extends Component {
 
   handleSave = text => {
     if (!text.length) {
-      this.props.onDeleteNote([this.props.note.id]);
+      this.props.onDeleteNote([this.props.note.get('id')]);
     }
 
-    this.props.updateNote(this.props.note.id, text);
+    this.props.updateNote(this.props.note.get('id'), text);
     this.setState({ editing: false });
   };
 
@@ -36,7 +36,7 @@ class NoteItem extends Component {
         />
         <button
           className="delete-note"
-          onClick={() => props.onDeleteNote([note.id])}
+          onClick={() => props.onDeleteNote([note.get('id')])}
         >
           x
         </button>

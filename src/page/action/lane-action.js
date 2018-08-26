@@ -1,3 +1,4 @@
+import { Map, List } from 'immutable';
 import {
   ADD_DATA,
   SET_DATA,
@@ -12,11 +13,11 @@ export const addLane = text => {
   const id = Math.ceil(new Date());
   return ADD_DATA({
     _path: `${path}.${id}`,
-    _value: {
+    _value: Map({
       id,
       name: text,
-      notes: []
-    }
+      notes: List([])
+    })
   });
 };
 
