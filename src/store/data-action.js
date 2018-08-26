@@ -12,6 +12,7 @@ const createDataAction = type => {
 };
 
 export const dataActionConst = {
+  ADD_DATA: 'ADD_DATA',
   SET_DATA: 'SET_DATA',
   GET_DATA: 'GET_DATA',
   REMOVE_DATA: 'REMOVE_DATA',
@@ -20,6 +21,7 @@ export const dataActionConst = {
   REARRANGE_DATA: 'REARRANGE_DATA'
 };
 
+export const ADD_DATA = createDataAction(dataActionConst.ADD_DATA);
 export const SET_DATA = createDataAction(dataActionConst.SET_DATA);
 export const REMOVE_DATA = createDataAction(dataActionConst.REMOVE_DATA);
 export const GET_DATA = createDataAction(dataActionConst.GET_DATA);
