@@ -36,7 +36,7 @@ export function remove(src, path, arrayOfValue) {
 
   if (Map.isMap(src.getIn(pathArr))) {
     return arrayOfValue.reduce((result, next) => {
-      return result.deleteIn([...pathArr, next]);
+      return result.deleteIn([...pathArr, String(next)]);
     }, src);
   }
 
