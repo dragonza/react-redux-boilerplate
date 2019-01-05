@@ -5,7 +5,7 @@ import { ConnectedRouter } from 'connected-react-router/immutable';
 import createHistory from 'history/createBrowserHistory';
 
 import { configureStore } from './store/configure-store';
-import App from './app';
+import App from './App';
 import Todo from './page';
 
 export default function Routes() {

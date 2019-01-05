@@ -11,6 +11,7 @@ export const updateNote = (id, text) => {
 };
 
 export const addNote = text => {
+  console.log('text', text);
   const id = Math.ceil(new Date()); // get random number
   return ADD_DATA({
     _path: `${path}.${id}`,
