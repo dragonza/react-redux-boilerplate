@@ -12,6 +12,7 @@ const path = 'laneList';
 export const addLane = text => {
   const id = Math.ceil(new Date());
   return ADD_DATA({
+    _type: `${path}/ADD_LANE`,
     _path: `${path}.${id}`,
     _value: Map({
       id,
@@ -23,6 +24,7 @@ export const addLane = text => {
 
 export const updateLane = (id, text) => {
   return SET_DATA({
+    _type: `${path}/UPDATE_LANE`,
     _path: `${path}.${id}.name`,
     _value: text
   });
@@ -30,6 +32,7 @@ export const updateLane = (id, text) => {
 
 export const attachNoteToLane = (laneId, noteId) => {
   return ADD_DATA({
+    _type: `${path}/ATTACH_NOTE_TO_LANE`,
     _path: `${path}.${laneId}.notes`,
     _value: noteId
   });
@@ -37,6 +40,7 @@ export const attachNoteToLane = (laneId, noteId) => {
 
 export const detachFromLane = (laneId, noteId) => {
   return REMOVE_DATA({
+    _type: `${path}/DETACH_FROM_LANE`,
     _path: `${path}.${laneId}.notes`,
     _value: noteId
   });
@@ -44,6 +48,7 @@ export const detachFromLane = (laneId, noteId) => {
 
 export const deleteLane = laneId => {
   return REMOVE_DATA({
+    _type: `${path}/DELETE_LANE`,
     _path: path,
     _value: laneId
   });
@@ -51,6 +56,7 @@ export const deleteLane = laneId => {
 
 export const arrangeNote = ({ sourceNoteIndex, targetNoteIndex, laneId }) => {
   return REARRANGE_DATA({
+    _type: `${path}/REARRANGE_NOTE`,
     _path: `${path}.${laneId}.notes`,
     _value: {
       sourceIndex: sourceNoteIndex,
@@ -59,6 +65,7 @@ export const arrangeNote = ({ sourceNoteIndex, targetNoteIndex, laneId }) => {
   });
 };
 
+// for saga
 export const moveNote = payload => {
   return {
     type: 'MOVE_NOTE',

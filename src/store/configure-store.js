@@ -18,6 +18,5 @@ export function configureStore({ history }) {
     composeEnhancer(applyMiddleware(routerMiddleware(history), sagaMiddleware))
   );
   sagaMiddleware.run(rootSaga);
-  console.log('store.getState().toJS()', store.getState().toJS());
   return store;
 }

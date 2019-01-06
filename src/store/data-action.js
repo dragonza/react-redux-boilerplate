@@ -5,7 +5,8 @@ import { isEmpty } from '../utils/is';
 const dataPayloadCreator = ({ _value }) => _value;
 const dataMetaCreator = data => {
   invariant(!isEmpty(data._path), '_path is required');
-  return { _path: data._path };
+  invariant(!isEmpty(data._type), '_type is required for each action creator');
+  return { _path: data._path, _type: data._type };
 };
 const createDataAction = type => {
   return createAction(type, dataPayloadCreator, dataMetaCreator);
