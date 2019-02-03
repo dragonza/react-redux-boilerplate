@@ -1,0 +1,92 @@
+ul {
+  list-style: none;
+  padding: 0
+}
+
+button {
+  cursor: pointer;
+  background-color: #fdfdfd;
+  border: 1px solid #ccc;
+}
+
+input {
+  max-width: 15rem;
+  font-size: 1.6rem;
+}
+
+.kanban-app {
+  font-size: 1.6rem;
+  padding: 8px;
+}
+
+.lane-list {
+  display: flex;
+  align-items: flex-start
+}
+
+.lane-item {
+  margin-right: 1rem;
+  min-width: 20rem;
+  background-color: #efefef;
+  border: 1px solid #ccc;
+  border-radius: .5rem;
+}
+
+.lane-header {
+  display: flex;
+  padding: 1rem;
+  color: #efefef;
+  background-color: #333;
+  align-items: center;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.lane-header-item {
+  flex: 1;
+}
+
+.notes-list {
+  margin: 1rem;
+}
+
+.note-item {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fdfdfd;
+  box-shadow: 0 0 0.3em .03em rgba(0, 0, 0, .3);
+}
+
+.note-item:hover {
+  box-shadow: 0 0 0.3em .03em rgba(0, 0, 0, .7);
+  transition: .6s;
+}
+
+.note-item button {
+  border: none;
+}
+
+.delete-lane {
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  padding: 0;
+}
+
+.task {
+  //white-space: nowrap;
+  //width: 200px;
+  //text-overflow: ellipsis;
+  //overflow: hidden;
+}
+
+.lane-editable {
+  margin: 0 .5rem;
+  flex: 10;
+}
+
+.editable {
+  width: 100%
+}

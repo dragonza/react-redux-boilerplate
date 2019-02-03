@@ -25,7 +25,7 @@ The boilerplate comes with some immutability helper functions that help to updat
  
 * `Set`: set a value (new or existing) to a particular path provided.
 ```javascript
-import { SET_DATA } from './action/note-action';
+import { UPDATE_DATE } from './action/note-action';
 const path = 'noteList';
 export const updateNote = (id, text) => {
   return SET_DATA({
