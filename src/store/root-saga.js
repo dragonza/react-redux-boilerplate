@@ -1,5 +1,6 @@
-import { takeEvery } from 'redux-saga/effects';
+import { spawn } from 'redux-saga/effects';
+import KanbanSaga from '../containers/KanbanPage/kanban-saga';
 
 export default function* rootSaga() {
-  yield takeEvery('TEST_SAGA', () => console.warn(123));
+  yield spawn(KanbanSaga);
 }

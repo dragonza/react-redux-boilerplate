@@ -1,14 +1,20 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { updateNote } from '../action/note-action';
-import Editable from './editable';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { updateNote } from "./note-action";
+import Editable from "../../../components/Editable";
 
 class NoteItem extends Component {
   state = {
     editing: false
   };
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return (
+  //     this.props.note !== nextProps.note ||
+  //     this.state.editing !== nextState.editing
+  //   );
+  // }
 
   handleOnEdit = () => {
     this.setState({ editing: true });
@@ -16,11 +22,16 @@ class NoteItem extends Component {
 
   handleSave = text => {
     if (!text.length) {
-      this.props.onDeleteNote([this.props.note.get('id')]);
+      this.props.onDeleteNote([this.props.note.get("id")]);
     }
 
-    this.props.updateNote(this.props.note.get('id'), text);
+    this.props.updateNote(this.props.note.get("id"), text);
     this.setState({ editing: false });
+    return true;
+  };
+
+  handleDeleteNoteButtonClick = () => {
+    this.props.onDeleteNote([this.props.note.get("id")])
   };
 
   renderComponent = (props, state) => {
@@ -29,14 +40,15 @@ class NoteItem extends Component {
     return (
       <div className="note-item">
         <Editable
-          value={note.get('task')}
+          className='note-editable'
+          value={note.get("task")}
           editing={state.editing}
           onEdit={this.handleOnEdit}
-          onSave={text => this.handleSave(text)}
+          onSave={this.handleSave}
         />
         <button
           className="delete-note"
-          onClick={() => props.onDeleteNote([note.get('id')])}
+          onClick={this.handleDeleteNoteButtonClick}
         >
           x
         </button>
@@ -50,14 +62,9 @@ class NoteItem extends Component {
 }
 
 export default connect(
-  () => ({}),
-  dispatch => {
-    return bindActionCreators(
-      {
-        updateNote
-      },
-      dispatch
-    );
+  null,
+  {
+    updateNote
   }
 )(NoteItem);
 

@@ -1,14 +1,10 @@
 import { createSelector } from 'reselect';
 
-export const laneListSelector = state => state.get('laneList');
 
-export const noteListSelector = state => state.get('noteList');
+export const noteListSelector = state => state.getIn(['kanban', 'noteList']);
 export const noteIdListByLane = (state, props) => {
   return props.lane.get('notes');
 };
-
-export const makeLaneListSelector = () =>
-  createSelector(laneListSelector, laneList => laneList);
 
 export const makeNoteListSelector = () =>
   createSelector(

@@ -31,9 +31,9 @@ export default function createAction(
       : payloadCreator(firstArgs, ...args);
   };
 
-  return (...args) => {
-    const payload = finalPayLoadCreator(...args);
-    const action = { type };
+  return (args) => {
+    const payload = finalPayLoadCreator(args);
+    const action = { type: args._type?  args._type : type };
 
     if (payload instanceof Error) {
       action.error = true;
@@ -45,7 +45,7 @@ export default function createAction(
 
     if (metaCreator) {
       action.meta = isFunction(metaCreator)
-        ? metaCreator(...args)
+        ? metaCreator(args)
         : metaCreator;
     }
 

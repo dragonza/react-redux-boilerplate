@@ -75,9 +75,11 @@ input {
   padding: 0;
 }
 
-.value {
-  text-overflow: ellipsis;
-  overflow: hidden;
+.task {
+  //white-space: nowrap;
+  //width: 200px;
+  //text-overflow: ellipsis;
+  //overflow: hidden;
 }
 
 .lane-editable {

@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import InputText from './input-text';
+import InputText from './InputText';
 
 export default class Editable extends Component {
   renderEditing = props => {
     return <InputText text={props.value} onSave={props.onSave} />;
   };
 
+  handleDoubleClick = () => {
+    this.props.onEdit();
+  };
+
   renderView = props => {
     return (
       <div
-        onDoubleClick={() => props.onEdit()}
-        className="note-task"
+        onDoubleClick={this.handleDoubleClick}
+        className="task"
         title="Double click to edit"
       >
         {props.value}

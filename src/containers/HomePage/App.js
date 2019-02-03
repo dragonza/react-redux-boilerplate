@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from './logo.svg';
+import logo from '../../logo.svg';
 
 export default () => {
   return (
@@ -10,7 +10,7 @@ export default () => {
         <div className="App-title">Welcome!</div>
       </header>
       <h1>Have a good day!</h1>
-      <Link to="/todo">Todo</Link>
+      <Link to="/kanban">Todo</Link>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import Immutable from 'immutable';
 import PropTypes from 'prop-types';
-import NoteItem from './note-item';
+import NoteItem from './NoteItem';
 
 const NoteList = ({ className, noteList, onDeleteNote, onMoveNote }) => {
   return (
@@ -20,7 +20,7 @@ const NoteList = ({ className, noteList, onDeleteNote, onMoveNote }) => {
 };
 
 NoteList.propTypes = {
-  onMoveNote: PropTypes.func.isRequired,
+  onMoveNote: PropTypes.func,
   onDeleteNote: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
   noteList: PropTypes.instanceOf(Immutable.List).isRequired
