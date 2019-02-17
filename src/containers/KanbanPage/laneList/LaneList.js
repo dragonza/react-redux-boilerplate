@@ -2,34 +2,43 @@ import React from 'react';
 import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import LaneItem from './LaneItem';
+import {
+  makeKanbanErrorSelector,
+  makeKanbanLoadingSelector,
+  makeLaneListIdsSelector,
+  makeLaneListSelector
+} from "./laneList-selector";
+import connect from "react-redux/es/connect/connect";
+import { createStructuredSelector } from "reselect";
 
-const LaneList = ({ laneList, className, onDeleteLane }) => {
-  if (!laneList) return null;
-  return (
-    <ul className={className}>
-      {laneList
+class LaneList extends React.PureComponent {
+
+  render() {
+    const { laneListIds } = this.props;
+    console.log('laneList Render ---->');
+    return (
+      <ul className="lane-list">
+        {laneListIds
         // .valueSeq()
-        .map(lane => (
-          <LaneItem
-            key={lane.get('id')}
-            lane={lane}
-            onDeleteLane={onDeleteLane}
-          />
-        ))}
-    </ul>
-  );
-};
-//
-// <LaneItem
-//   key={lane.get("id")}
-//   lane={lane}
-//   onDeleteLane={onDeleteLane}
-// />
+          .map(id =>{
+            return (
+              <LaneItem
+                key={id}
+                laneId={id}
+                // onDeleteLane={this.handleAddLane}
+              />
+            )
+          })}
+      </ul>
+    );
+  }
+}
 
-LaneList.propTypes = {
-  onDeleteLane: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
-  laneList: PropTypes.instanceOf(Immutable.List).isRequired
-};
+const mapStateToProps = createStructuredSelector({
+  laneListIds: makeLaneListIdsSelector()
+});
 
-export default LaneList;
+
+export default connect(
+  mapStateToProps,
+)(LaneList);

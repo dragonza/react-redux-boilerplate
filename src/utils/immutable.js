@@ -12,36 +12,34 @@ function pathToArray(path) {
 
 export function create(src, path, value, subPath) {
   const pathArr = pathToArray(path);
-  const subPathArr = pathToArray(subPath);
+  console.log('pathArr', pathArr);
   // if the path end is undefined means that the value is not existed in the Map
-  if (!src.hasIn(pathArr)) {
-    console.log('map');
-    return src.mergeIn(pathArr, value);
+  if (!src.getIn(pathArr)) {
+    return src.mergeIn(pathArr, Map(value));
   }
 
   // is immutable List
   if (List.isList(src.getIn(pathArr))) {
-    if (subPathArr.length) {
-      const finalPathArr = extractPathArrFromMixSource(src, pathArr, subPathArr);
-      return src.updateIn(finalPathArr, arr => arr.concat([value]));
-    }
     return src.updateIn(pathArr, arr => arr.concat([value]));
   }
+
+  return src;
 }
 
 export function update(src, path, newVal, subPath) {
   const pathArr = pathToArray(path);
-  const subPathArr = pathToArray(subPath);
-  if (!Map.isMap(src.getIn(pathArr))) {
-    return src.setIn(pathArr, newVal);
-  }
-  if (List.isList(src.getIn(pathArr))) {
-    if (subPathArr.length) {
-      const finalPathArr = extractPathArrFromMixSource(src, pathArr, subPathArr);
-      return src.setIn(finalPathArr, newVal);
-    }
-  }
-  return src.mergeDeepIn(pathArr, newVal);
+  // const subPathArr = pathToArray(subPath);
+  // if (!Map.isMap(src.getIn(pathArr))) {
+  //   return src.setIn(pathArr, newVal);
+  // }
+  // if (List.isList(src.getIn(pathArr))) {
+  //   if (subPathArr.length) {
+  //     const finalPathArr = extractPathArrFromMixSource(src, pathArr, subPathArr);
+  //     return src.setIn(finalPathArr, newVal);
+  //   }
+  // }
+  console.log('newVal', newVal, pathArr);
+  return src.setIn(pathArr, newVal);
 }
 
 /**
@@ -85,7 +83,7 @@ export function remove(src, path, arrayOfValue) {
 
   if (List.isList(src.getIn(pathArr))) {
     const node = src.getIn(pathArr);
-    const newNode = node.filter(val => !arrayOfValue.includes(val.get('id')));
+    const newNode = node.filter(val => !arrayOfValue.includes(val));
     return src.updateIn(pathArr, () => List(newNode));
     // return
   }

@@ -3,15 +3,15 @@ import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import NoteItem from './NoteItem';
 
-const NoteList = ({ className, noteList, onDeleteNote, onMoveNote }) => {
+const NoteList = ({ className, noteListIds, onDeleteNote, onMoveNote }) => {
   return (
     <div className={className}>
-      {noteList.map(note => (
+      {noteListIds.map(noteId => (
         <NoteItem
           onMoveNote={onMoveNote}
-          note={note}
-          id={note.get('id')}
-          key={note.get('id')}
+          noteId={noteId}
+          id={noteId}
+          key={noteId}
           onDeleteNote={onDeleteNote}
         />
       ))}
@@ -23,7 +23,7 @@ NoteList.propTypes = {
   onMoveNote: PropTypes.func,
   onDeleteNote: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
-  noteList: PropTypes.instanceOf(Immutable.List).isRequired
+  noteListIds: PropTypes.instanceOf(Immutable.List).isRequired
 };
 
 export default NoteList;

@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { makeNoteListSelector } from "../noteList/noteList-selector";
+import {makeNoteIdListByLane, makeNoteListSelector, noteIdListByLane} from "../noteList/noteList-selector";
 import Editable from "../../../components/Editable";
 import NoteList from "../noteList/NoteList";
 import {
   updateLane,
-  attachNoteToLane,
   moveNote,
   detachFromLane
   // arrangeNote
 } from "./lane-action";
 import { addNote, deleteNote } from "../noteList/note-action";
 import { createStructuredSelector } from "reselect";
+import { makeLaneItemSelector } from './laneList-selector';
+
 
 class LaneItem extends Component {
   state = {
@@ -40,9 +41,9 @@ class LaneItem extends Component {
   };
 
   handleAddNoteButtonClick = () => {
-    const { addNote, attachNoteToLane, lane } = this.props;
-    const newTask = addNote("New Task");
-    attachNoteToLane(lane.get("id"), newTask.payload.get("id"));
+    console.log('test', );
+    const { addNote, lane } = this.props;
+    addNote("New Task", lane.get("id"));
   };
 
   handleDeleteNote = id => {
@@ -94,8 +95,8 @@ class LaneItem extends Component {
 
         <NoteList
           // onMoveNote={payload => this.handleMoveNote(payload)}
-          noteList={props.noteListByLane}
-          className="notes-list lane-header-item"
+          noteListIds={props.noteIdListByLane}
+          className="notes-list note-header-item"
           onDeleteNote={this.handleDeleteNote}
         />
       </div>
@@ -106,17 +107,15 @@ class LaneItem extends Component {
     return this.renderComponent(this.props, this.state);
   }
 }
+// const mapStateToProps = createStructuredSelector({
+//   // noteListByLane: makeNoteListSelector(),
+//   lane: makeLaneItemSelector()
+// });
 const mapStateToProps = createStructuredSelector({
-  noteListByLane: makeNoteListSelector()
+  lane: makeLaneItemSelector(),
+  // noteListByLane: makeNoteListSelector(),
+  noteIdListByLane: makeNoteIdListByLane()
 });
-// const makeMapStateToProps = () => {
-//   const getNoteListByLane = makeNoteListSelector();
-//   return (state, props) => {
-//     return {
-//       noteListByLane: getNoteListByLane(state, props)
-//     };
-//   };
-// };
 
 export default connect(
   mapStateToProps,
@@ -124,7 +123,6 @@ export default connect(
     updateLane,
     addNote,
     deleteNote,
-    attachNoteToLane,
     detachFromLane,
     // arrangeNote,
     moveNote

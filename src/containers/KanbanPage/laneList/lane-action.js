@@ -22,7 +22,7 @@ export const addLane = text => {
   // }
   return CREATE_DATA({
     _type: CREATE,
-    _path: `${path}`,
+    _path: `${path}.laneMap`,
     _value: Map({
       id,
       name: text,
@@ -41,10 +41,10 @@ export const updateLane = (laneId, text) => {
 };
 
 export const attachNoteToLane = (laneId, noteId) => {
+  console.log('laneId', laneId);
   return CREATE_DATA({
     _type: `${CREATE}/ATTACH_NOTE_TO_LANE`,
-    _path: `${path}`,
-    _subPath: `${laneId}.notes`,
+    _path: `${path}.laneMap.${laneId}.notes`,
     _value: noteId
   });
 };
