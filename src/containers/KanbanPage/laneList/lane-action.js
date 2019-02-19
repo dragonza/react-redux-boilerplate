@@ -1,49 +1,36 @@
-import { Map, List } from 'immutable';
-import uuid from 'uuid/v4'
+import { Map, List } from "immutable";
+import uuid from "uuid/v4";
 import {
   CREATE_DATA,
   UPDATE_DATA,
-  REMOVE_DATA,
+  REMOVE_DATA
   // MERGE_DATA,
-} from '../../../store/data-action';
-import { CREATE, UPDATE, REMOVE } from './constant';
+} from "../../../store/data-action";
+import {
+  CREATE_LANE,
+  UPDATE_LANE,
+  REMOVE_LANE,
+  DELETE_LANE_SAGA,
+  ADD_LANE_SAGA,
+} from "./constant";
 import { basePath } from "../constant";
+
+
 const path = `${basePath}.laneList`;
 
-export const addLane = text => {
-  const id = uuid();
-  // return {
-  //   type: 'CREATE_LANE_TEST',
-  //   payload: {
-  //     id,
-  //     name: text,
-  //     notes: List([])
-  //   }
-  // }
-  return CREATE_DATA({
-    _type: CREATE,
-    _path: `${path}.laneMap`,
-    _value: Map({
-      id,
-      name: text,
-      notes: List([])
-    })
-  });
-};
 
 export const updateLane = (laneId, text) => {
   return UPDATE_DATA({
-    _type: UPDATE,
-    _path: `${path}`,
-    _subPath: `${laneId}.name`,
+    _type: UPDATE_LANE,
+    _path: `${path}.laneMap.${laneId}.name`,
     _value: text
   });
 };
 
 export const attachNoteToLane = (laneId, noteId) => {
-  console.log('laneId', laneId);
+  console.log("laneId", laneId);
   return CREATE_DATA({
-    _type: `${CREATE}/ATTACH_NOTE_TO_LANE`,
+    _type: `${CREATE_LANE}/ATTACH_NOTE_TO_LANE`,
     _path: `${path}.laneMap.${laneId}.notes`,
     _value: noteId
   });
@@ -51,17 +38,32 @@ export const attachNoteToLane = (laneId, noteId) => {
 
 export const detachFromLane = (laneId, noteId) => {
   return REMOVE_DATA({
-    _type: `${REMOVE}/DETACH_NOTE`,
+    _type: `${REMOVE_DATA}/DETACH_NOTE`,
     _path: `${path}.${laneId}.notes`,
     _value: noteId
   });
 };
 
 export const deleteLane = laneId => {
+  return {
+    type: DELETE_LANE_SAGA,
+    laneId
+  };
+};
+
+export const deleteLaneFromMap = laneId => {
   return REMOVE_DATA({
-    _type: `${REMOVE}/DELETE_LANE`,
-    _path: path,
-    _value: laneId
+    _type: `${REMOVE_LANE}/DELETE_LANE_FROM_MAP`,
+    _path: `${path}.laneMap`,
+    _value: List([laneId])
+  });
+};
+
+export const deleteLaneIdFromList = laneId => {
+  return REMOVE_DATA({
+    _type: `${REMOVE_LANE}/DELETE_LANE_FROM_IDLIST`,
+    _path: `${path}.byIds`,
+    _value: List([laneId])
   });
 };
 
@@ -79,7 +81,7 @@ export const deleteLane = laneId => {
 // for saga
 export const moveNote = payload => {
   return {
-    type: 'MOVE_NOTE',
+    type: "MOVE_NOTE",
     ...payload
   };
 };

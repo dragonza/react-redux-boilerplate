@@ -7,7 +7,8 @@ import NoteList from "../noteList/NoteList";
 import {
   updateLane,
   moveNote,
-  detachFromLane
+  detachFromLane,
+  deleteLane,
   // arrangeNote
 } from "./lane-action";
 import { addNote, deleteNote } from "../noteList/note-action";
@@ -37,7 +38,6 @@ class LaneItem extends Component {
     const { lane } = this.props;
     this.props.updateLane(lane.get("id"), text);
     this.setState({ editing: false });
-    return true;
   };
 
   handleAddNoteButtonClick = () => {
@@ -53,18 +53,10 @@ class LaneItem extends Component {
   };
 
   handleDeleteLane = () => {
-    const { lane, onDeleteLane, deleteNote } = this.props;
-    onDeleteLane(lane.get("id"));
-    lane.get("notes").forEach(note => deleteNote([note]));
+    const { lane, deleteLane, deleteNote } = this.props;
+    deleteLane(lane.get("id"));
+    deleteNote(lane.get("notes"));
   };
-
-  // handleMoveNote = payload => {
-  //   const { sourceId, targetId } = payload;
-  //   this.props.moveNote({
-  //     sourceId,
-  //     targetId
-  //   });
-  // };
 
   renderComponent = (props, state) => {
     const { lane } = props;
@@ -124,6 +116,7 @@ export default connect(
     addNote,
     deleteNote,
     detachFromLane,
+    deleteLane,
     // arrangeNote,
     moveNote
   }

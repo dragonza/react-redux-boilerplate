@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import LaneList from "./laneList/LaneList";
-import { fetchKanban } from "./kanban-action";
+import { connect } from 'react-redux';
+import { fetchKanban, addLane } from "./kanban-action";
 
 class KanbanBoard extends Component {
-  handleAddLane = () => {};
+  handleAddLane = () => {
+    this.props.addLane('New Lane')
+  };
 
   render() {
     console.log("kanban render");
@@ -18,4 +21,7 @@ class KanbanBoard extends Component {
   }
 }
 
-export default KanbanBoard;
+export default connect(
+  null,
+  { addLane }
+)(KanbanBoard);

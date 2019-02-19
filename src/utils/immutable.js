@@ -10,9 +10,8 @@ function pathToArray(path) {
     .split('*');
 }
 
-export function create(src, path, value, subPath) {
+export function create(src, path, value) {
   const pathArr = pathToArray(path);
-  console.log('pathArr', pathArr);
   // if the path end is undefined means that the value is not existed in the Map
   if (!src.getIn(pathArr)) {
     return src.mergeIn(pathArr, Map(value));
@@ -26,7 +25,7 @@ export function create(src, path, value, subPath) {
   return src;
 }
 
-export function update(src, path, newVal, subPath) {
+export function update(src, path, newVal) {
   const pathArr = pathToArray(path);
   // const subPathArr = pathToArray(subPath);
   // if (!Map.isMap(src.getIn(pathArr))) {
@@ -38,7 +37,6 @@ export function update(src, path, newVal, subPath) {
   //     return src.setIn(finalPathArr, newVal);
   //   }
   // }
-  console.log('newVal', newVal, pathArr);
   return src.setIn(pathArr, newVal);
 }
 
@@ -74,7 +72,6 @@ function extractPathArrFromMixSource(src, pathArr, subPathArr) {
 export function remove(src, path, arrayOfValue) {
   const pathArr = pathToArray(path);
   // return src.deleteIn([pathArr, String(arrayOfvalue[0])]);
-
   if (Map.isMap(src.getIn(pathArr))) {
     return arrayOfValue.reduce((result, next) => {
       return result.deleteIn([...pathArr, String(next)]);

@@ -25,7 +25,7 @@ class LaneList extends React.PureComponent {
               <LaneItem
                 key={id}
                 laneId={id}
-                // onDeleteLane={this.handleAddLane}
+                onDeleteLane={this.handleAddLane}
               />
             )
           })}
