@@ -1,5 +1,5 @@
 {
-  "name": "testing-new-version",
+  "name": "react-redux-boilderplate",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -36,6 +36,14 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-compat": "^3.1.1",
     "why-did-you-update": "^1.0.6"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "all"
   }
 }

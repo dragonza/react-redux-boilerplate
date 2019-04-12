@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import InputText from './InputText';
 
-export default class Editable extends Component {
-  renderEditing = props => {
-    return <InputText text={props.value} onSave={props.onSave} />;
-  };
-
+export default class Editable extends PureComponent {
   handleDoubleClick = () => {
-    this.props.onEdit();
+    const { onEdit } = this.props;
+    onEdit();
   };
 
   renderView = props => {
@@ -23,9 +21,13 @@ export default class Editable extends Component {
     );
   };
 
+  renderEditing = props => {
+    return <InputText text={props.value} onSave={props.onSave} />;
+  };
+
   renderComponent = props => {
     const cls = classNames(props.className, {
-      editable: true
+      editable: true,
     });
     return (
       <div className={cls}>
@@ -38,3 +40,7 @@ export default class Editable extends Component {
     return this.renderComponent(this.props, this.state);
   }
 }
+
+Editable.propTypes = {
+  onEdit: PropTypes.object.isRequired,
+};

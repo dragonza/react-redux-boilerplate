@@ -3,23 +3,26 @@ import PropTypes from 'prop-types';
 
 export default class InputText extends Component {
   state = {
-    text: this.props.text || ''
+    text: this.props.text || '', // eslint-disable-line
   };
 
   handleOnChange = e => {
     this.setState({
-      text: e.target.value
+      text: e.target.value,
     });
   };
 
   handleBlur = e => {
-    this.props.onSave(e.target.value.trim());
+    const { onSave } = this.props;
+    onSave(e.target.value.trim());
   };
 
   handleSubmit = e => {
+    const { onSave } = this.props;
+
     const text = e.target.value.trim();
     if (e.which === 13) {
-      this.props.onSave(text);
+      onSave(text);
     }
   };
 
@@ -45,5 +48,5 @@ export default class InputText extends Component {
 
 InputText.propTypes = {
   onSave: PropTypes.func.isRequired,
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
 };

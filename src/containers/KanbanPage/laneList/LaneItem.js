@@ -1,33 +1,16 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import {makeNoteIdListByLane, makeNoteListSelector, noteIdListByLane} from "../noteList/noteList-selector";
-import Editable from "../../../components/Editable";
-import NoteList from "../noteList/NoteList";
-import {
-  updateLane,
-  moveNote,
-  detachFromLane,
-  deleteLane,
-  // arrangeNote
-} from "./lane-action";
-import { addNote, deleteNote } from "../noteList/note-action";
-import { createStructuredSelector } from "reselect";
-import { makeLaneItemSelector } from './laneList-selector';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import uuid from 'uuid/v4';
+import Editable from '../../../components/Editable';
+import NoteList from '../noteList/NoteList';
+import { addNote, deleteNote } from '../noteList/note-action';
+import { detachFromLane, attachNoteToLane, updateLane } from './lane-action';
 
-
-class LaneItem extends Component {
+class LaneItem extends PureComponent {
   state = {
-    editing: false
+    editing: false,
   };
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('this.props.lane === nextProps.lane', this.props.lane === nextProps.lane);
-  //   return (
-  //     this.props.lane !== nextProps.lane ||
-  //     this.state.editing !== nextState.editing
-  //   );
-  // }
 
   handleOnEdit = () => {
     this.setState({ editing: true });
@@ -35,61 +18,66 @@ class LaneItem extends Component {
 
   handleSave = text => {
     if (!text.length) return null;
-    const { lane } = this.props;
-    this.props.updateLane(lane.get("id"), text);
-    this.setState({ editing: false });
+    const { lane, updateLane } = this.props;
+    updateLane(lane.get('id'), text);
+    return this.setState({ editing: false });
   };
 
-  handleAddNoteButtonClick = () => {
-    console.log('test', );
-    const { addNote, lane } = this.props;
-    addNote("New Task", lane.get("id"));
-  };
-
-  handleDeleteNote = id => {
-    const { lane, deleteNote, detachFromLane } = this.props;
-    deleteNote(id);
-    detachFromLane(lane.get("id"), id);
+  handleAddNote = () => {
+    const { addNote, attachNoteToLane, lane } = this.props;
+    const id = uuid();
+    const newTask = {
+      task: 'New Task',
+      id,
+    };
+    addNote(newTask);
+    attachNoteToLane(lane.get('id'), id);
   };
 
   handleDeleteLane = () => {
-    const { lane, deleteLane, deleteNote } = this.props;
-    deleteLane(lane.get("id"));
-    deleteNote(lane.get("notes"));
+    const { lane, onDeleteLane, deleteNote } = this.props;
+    onDeleteLane(lane.get('id'));
+    deleteNote(lane.get("notes").toJS());
+  };
+
+  handleDetachNote = noteId => {
+    const { detachFromLane, lane } = this.props;
+    detachFromLane(lane.get('id'), noteId);
   };
 
   renderComponent = (props, state) => {
     const { lane } = props;
+    // console.log('LaneItem render ==>', lane.get('id'));
     // if (!lane) return null;
     return (
       <div className="lane-item">
         <div className="lane-header">
           <button
+            type="button"
             className="add-note lane-header-item"
-            onClick={this.handleAddNoteButtonClick}
+            onClick={this.handleAddNote}
           >
             +
           </button>
           <Editable
-            value={lane.get("name")}
+            value={lane.get('name')}
             editing={state.editing}
             onEdit={this.handleOnEdit}
             className="lane-header-item lane-editable"
             onSave={this.handleSave}
           />
           <button
+            type="button"
             className="delete-note lane-header-item"
             onClick={this.handleDeleteLane}
           >
             x
           </button>
         </div>
-
         <NoteList
-          // onMoveNote={payload => this.handleMoveNote(payload)}
-          noteListIds={props.noteIdListByLane}
+          onDetachNoteFromLane={this.handleDetachNote}
+          noteListIds={lane.get('notes')}
           className="notes-list note-header-item"
-          onDeleteNote={this.handleDeleteNote}
         />
       </div>
     );
@@ -99,31 +87,24 @@ class LaneItem extends Component {
     return this.renderComponent(this.props, this.state);
   }
 }
-// const mapStateToProps = createStructuredSelector({
-//   // noteListByLane: makeNoteListSelector(),
-//   lane: makeLaneItemSelector()
-// });
-const mapStateToProps = createStructuredSelector({
-  lane: makeLaneItemSelector(),
-  // noteListByLane: makeNoteListSelector(),
-  noteIdListByLane: makeNoteIdListByLane()
-});
 
 export default connect(
-  mapStateToProps,
+  null,
   {
-    updateLane,
     addNote,
-    deleteNote,
     detachFromLane,
-    deleteLane,
-    // arrangeNote,
-    moveNote
-  }
+    attachNoteToLane,
+    updateLane,
+    deleteNote,
+  },
 )(LaneItem);
 
 LaneItem.propTypes = {
-  moveNote: PropTypes.func.isRequired,
+  onDeleteLane: PropTypes.func.isRequired,
+  deleteNote: PropTypes.func.isRequired,
+  addNote: PropTypes.func.isRequired,
+  detachFromLane: PropTypes.func.isRequired,
+  attachNoteToLane: PropTypes.func.isRequired,
   updateLane: PropTypes.func.isRequired,
-  lane: PropTypes.object.isRequired
+  lane: PropTypes.object.isRequired,
 };

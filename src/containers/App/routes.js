@@ -10,7 +10,7 @@ import KanbanBoard from '../KanbanPage';
 
 export default function Routes() {
   const history = createHistory({
-    basename: process.env.PUBLIC_URL
+    basename: process.env.PUBLIC_URL,
   });
 
   const store = configureStore({ history });

@@ -1,4 +1,6 @@
 import { Map, List } from 'immutable';
+import invariant from "./invariant";
+// import {isNumber} from "./is";
 
 function pathToArray(path) {
   if (Array.isArray(path)) return path;
@@ -28,16 +30,11 @@ export function create(src, path, value) {
 export function update(src, path, newVal) {
   const pathArr = pathToArray(path);
   // const subPathArr = pathToArray(subPath);
-  // if (!Map.isMap(src.getIn(pathArr))) {
-  //   return src.setIn(pathArr, newVal);
-  // }
-  // if (List.isList(src.getIn(pathArr))) {
-  //   if (subPathArr.length) {
-  //     const finalPathArr = extractPathArrFromMixSource(src, pathArr, subPathArr);
-  //     return src.setIn(finalPathArr, newVal);
-  //   }
-  // }
-  return src.setIn(pathArr, newVal);
+  if (!Map.isMap(src.getIn(pathArr))) {
+    return src.setIn(pathArr, newVal);
+  }
+
+  return src.mergeDeepIn(pathArr, newVal);
 }
 
 /**
@@ -69,7 +66,8 @@ function extractPathArrFromMixSource(src, pathArr, subPathArr) {
   return finalPathArr;
 }
 
-export function remove(src, path, arrayOfValue) {
+export function remove(src, path, arrayOfValue, identifier = 'id') {
+  invariant(arrayOfValue.length, `Array cannot be empty`);
   const pathArr = pathToArray(path);
   // return src.deleteIn([pathArr, String(arrayOfvalue[0])]);
   if (Map.isMap(src.getIn(pathArr))) {
@@ -80,15 +78,19 @@ export function remove(src, path, arrayOfValue) {
 
   if (List.isList(src.getIn(pathArr))) {
     const node = src.getIn(pathArr);
-    const newNode = node.filter(val => !arrayOfValue.includes(val));
+    const newNode = node.filter(val => {
+      if (Map.isMap(val)) {
+        return !arrayOfValue.includes(val.get(identifier));
+      }
+      return !arrayOfValue.includes(val)
+    });
     return src.updateIn(pathArr, () => List(newNode));
-    // return
   }
 
   return src;
 }
 
 // TODO: implement later
-export function reaarange(src, path) {
+export function reaarange(src) {
   return src
 }
