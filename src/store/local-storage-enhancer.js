@@ -22,7 +22,7 @@ function getSubsets(obj, paths) {
 /**
  * createSlicer inspects the typeof paths and returns an appropriate slicer function.
  * @param {String|String[]} [paths] The paths argument supplied to persistState.
- * @return {Function} A slicer function, which returns the subset to store when called with Redux'tests store state.
+ * @return {Function} A slicer function, which returns the subset to store when called with Redux'__tests__ store state.
  */
 function createSlicer(paths) {
   if (isEmpty(paths)) return state => state;

@@ -10,27 +10,44 @@
 {
   "extends": ["airbnb", "prettier"],
   "parser": "babel-eslint",
-  "plugins": ["react"],
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "babel",
+    "import",
+    "compat"
+  ],
   "env": {
     "jest": true,
-    "browser": true
+    "browser": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "rules": {
+    "no-shadow": "off",
     "max-len": [1, 120],
     "indent": [1, 2, { "SwitchCase": 1 }],
     "no-tabs": 0,
     "no-plusplus": 0,
-    "comma-dangle": ["error", "never"],
+    "comma-dangle": ["error", "always-multiline"],
     "no-underscore-dangle": 0,
     "no-console": [1, { "allow": ["info", "warn", "error"] }],
     "radix": [1, "as-needed"],
     "arrow-parens": 0,
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": [0, "error", "unix"],
     "arrow-body-style": 0,
     "global-require": 0,
     "import/no-dynamic-require": 0,
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 0,
+    "react/jsx-uses-react": 1,
+    "react/jsx-uses-vars": 1,
     "react/forbid-prop-types": [1, { "forbid": ["any"] }],
     "react/jsx-indent": [1, 2],
     "react/jsx-indent-props": [1, 2],
@@ -45,9 +62,19 @@
       "specialLink": [ "hrefLeft", "hrefRight", "to" ],
       "aspects": [ "noHref", "invalidHref", "preferButton" ]
     }],
+    "import/no-named-as-default": 0,
+    "no-use-before-define": ["error", { "variables": false }],
     "jsx-a11y/no-autofocus": [ 2, {
       "ignoreNonDOM": true
     }],
+    "space-before-function-paren": [
+      2,
+      {
+        "anonymous": "always",
+        "named": "never"
+      }
+    ],
+    "object-curly-spacing": 0,
     "react/sort-comp": [2, {
       "order": [
         "type-annotations",

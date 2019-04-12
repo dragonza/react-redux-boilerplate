@@ -3,27 +3,27 @@ import Immutable from 'immutable';
 import PropTypes from 'prop-types';
 import NoteItem from './NoteItem';
 
-const NoteList = ({ className, noteList, onDeleteNote, onMoveNote }) => {
-  return (
-    <div className={className}>
-      {noteList.map(note => (
-        <NoteItem
-          onMoveNote={onMoveNote}
-          note={note}
-          id={note.get('id')}
-          key={note.get('id')}
-          onDeleteNote={onDeleteNote}
-        />
-      ))}
-    </div>
-  );
-};
+class NoteList extends React.PureComponent {
+  render() {
+    const { noteListIds, className, onDetachNoteFromLane } = this.props;
+    return (
+      <div className={className}>
+        {noteListIds.map(id => (
+          <NoteItem
+            key={id}
+            noteId={id}
+            onDetachNoteFromLane={onDetachNoteFromLane}
+          />
+        ))}
+      </div>
+    );
+  }
+}
 
 NoteList.propTypes = {
-  onMoveNote: PropTypes.func,
-  onDeleteNote: PropTypes.func.isRequired,
+  onDetachNoteFromLane: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired,
-  noteList: PropTypes.instanceOf(Immutable.List).isRequired
+  noteListIds: PropTypes.instanceOf(Immutable.List).isRequired,
 };
 
 export default NoteList;

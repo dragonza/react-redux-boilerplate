@@ -35,7 +35,7 @@ export function register(config) {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (isLocalhost) {
-        // This is running on localhost. Let'tests check if a service worker still exists or not.
+        // This is running on localhost. Let'__tests__ check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
 
         // Add some additional logging to localhost, pointing developers to the
@@ -80,7 +80,7 @@ function registerValidSW(swUrl, config) {
               }
             } else {
               // At this point, everything has been precached.
-              // It'tests the perfect time to display a
+              // It'__tests__ the perfect time to display a
               // "Content is cached for offline use." message.
               console.log('Content is cached for offline use.');
 
