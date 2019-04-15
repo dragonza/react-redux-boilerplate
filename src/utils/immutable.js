@@ -45,26 +45,26 @@ export function update(src, path, newVal) {
  *
  */
 
-function extractPathArrFromMixSource(src, pathArr, subPathArr) {
-  let currentPath = src.getIn(pathArr);
-  let finalPathArr = [...pathArr];
-  subPathArr.forEach(path => {
-    if (List.isList(currentPath)) {
-      const index = currentPath.findIndex(item => {
-        return item.get('id').toString() === path
-      });
-      if (index > -1) {
-        finalPathArr = finalPathArr.concat(index);
-        currentPath = src.getIn([...pathArr, index])
-      }
-    } else {
-      finalPathArr = finalPathArr.concat(path);
-      currentPath = currentPath.getIn([path])
-    }
-  });
-
-  return finalPathArr;
-}
+// function extractPathArrFromMixSource(src, pathArr, subPathArr) {
+//   let currentPath = src.getIn(pathArr);
+//   let finalPathArr = [...pathArr];
+//   subPathArr.forEach(path => {
+//     if (List.isList(currentPath)) {
+//       const index = currentPath.findIndex(item => {
+//         return item.get('id').toString() === path
+//       });
+//       if (index > -1) {
+//         finalPathArr = finalPathArr.concat(index);
+//         currentPath = src.getIn([...pathArr, index])
+//       }
+//     } else {
+//       finalPathArr = finalPathArr.concat(path);
+//       currentPath = currentPath.getIn([path])
+//     }
+//   });
+//
+//   return finalPathArr;
+// }
 
 export function remove(src, path, arrayOfValue, identifier = 'id') {
   invariant(arrayOfValue.length, `Array cannot be empty`);

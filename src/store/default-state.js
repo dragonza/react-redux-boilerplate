@@ -54,4 +54,9 @@ export default fromJS({
       }
     }
   },
+  auth: {
+    authenticated: localStorage.getItem('token') || '', // store token here
+    errorMessage: '',
+    loading: false,
+  }
 });

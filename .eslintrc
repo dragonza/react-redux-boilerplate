@@ -30,6 +30,18 @@
     }
   },
   "rules": {
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "controlComponents": ["Field"],
+      "depth": 3
+    }],
+    "jsx-a11y/label-has-for": [
+      "error", {
+        "components": [ "label"  ],
+        "required": {
+          "every": [ "id" ]
+        }
+      }
+    ],
     "no-shadow": "off",
     "max-len": [1, 120],
     "indent": [1, 2, { "SwitchCase": 1 }],

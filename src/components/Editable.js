@@ -42,5 +42,5 @@ export default class Editable extends PureComponent {
 }
 
 Editable.propTypes = {
-  onEdit: PropTypes.object.isRequired,
+  onEdit: PropTypes.func.isRequired,
 };

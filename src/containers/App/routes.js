@@ -2,27 +2,39 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router/immutable';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
+import Layout from '../../components/Layout'
 
 import { configureStore } from '../../store/configure-store';
 import App from '../HomePage/App';
 import KanbanBoard from '../KanbanPage';
+import Signup from "../Auth/Signup";
+import Feature from "../Feature/Feature";
+import Signout from "../Auth/Signout";
+
+export const history = createBrowserHistory({
+  basename: process.env.PUBLIC_URL,
+});
+
 
 export default function Routes() {
-  const history = createHistory({
-    basename: process.env.PUBLIC_URL,
-  });
+
 
   const store = configureStore({ history });
 
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Switch>
-          <Route exact path="/" component={App} />
-          <Route path="/kanban" component={KanbanBoard} />
-          <Route component={() => <div>404 Not found 1</div>} />
-        </Switch>
+        <Layout>
+          <Switch>
+            <Route exact path="/" component={App} />
+            <Route path="/kanban" component={KanbanBoard} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/feature" component={Feature} />
+            <Route path="/signout" component={Signout} />
+            <Route component={() => <div>404 Not found </div>} />
+          </Switch>
+        </Layout>
       </ConnectedRouter>
     </Provider>
   );

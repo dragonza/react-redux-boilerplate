@@ -1,11 +1,13 @@
+import { reducer as formReducer } from 'redux-form';
 import { connectRouter } from 'connected-react-router/immutable';
 import { combineReducers } from 'redux-immutable';
 import { reduceReducers } from '../utils/reduceReducers';
-// import reducer from '../page/reducer/reducer';
 import dataReducer from './data-reducer';
 import defaultState from './default-state';
 // add new reducer
-const reducers = {};
+const reducers = {
+  form: formReducer
+};
 const defaultReducer = (s = {}) => s;
 
 // https://github.com/reduxjs/redux/issues/1994 prevent this warning
