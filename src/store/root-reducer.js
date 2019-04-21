@@ -1,4 +1,4 @@
-import { reducer as formReducer } from 'redux-form';
+import { reducer as formReducer } from 'redux-form/immutable';
 import { connectRouter } from 'connected-react-router/immutable';
 import { combineReducers } from 'redux-immutable';
 import { reduceReducers } from '../utils/reduceReducers';

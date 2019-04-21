@@ -7,7 +7,7 @@ class Feature extends Component {
   render() {
     return (
       <div>
-        This is a Feature
+        This is a Feature/ Protected page
       </div>
     );
   }
