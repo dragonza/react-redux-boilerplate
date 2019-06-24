@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import {createStructuredSelector} from "reselect";
 import {makeAuthTokenSelector} from "../containers/Auth/auth-selector";
 
-
 class Header extends Component {
   renderMenu = () => {
     const {  authenticated } = this.props;
@@ -31,7 +30,7 @@ class Header extends Component {
     return (
       <header className="header">
         <div className="logo">
-          <Link to="/" className="logo__item">Logo</Link>
+          <Link  to="/" className="logo__item">Logo </Link >
         </div>
         <nav className="nav">
           {this.renderMenu()}

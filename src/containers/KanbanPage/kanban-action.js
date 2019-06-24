@@ -2,7 +2,7 @@ import { CREATE_DATA, UPDATE_DATA } from '../../store/data-action';
 import { fromJS, Map, List } from 'immutable';
 import { basePath } from './constant';
 import { UPDATE } from './constant';
-import { ADD_LANE_SAGA, CREATE_LANE } from './laneList/constant';
+import { CREATE_LANE } from './laneList/constant';
 import uuid from 'uuid/v4';
 
 export const fetchKanban = () => {

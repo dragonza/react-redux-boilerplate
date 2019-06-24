@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm } from 'redux-form/immutable';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect/lib/index';
 import { signUp } from '../auth-action';
 import { makeAuthErrorSelector } from '../auth-selector';
