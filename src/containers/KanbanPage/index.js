@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import LaneList from './laneList/LaneList';
-import { fetchKanban, addLane } from './kanban-action';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import LaneList from "./laneList/LaneList";
+import { addLane } from "./kanban-action";
 
 class KanbanBoard extends Component {
   handleAddLane = () => {
     const { addLane } = this.props;
-    addLane('New Lane');
+    addLane("New Lane");
   };
 
   render() {
-    console.log('kanban render');
+    console.log("kanban render");
     return (
       <div className="kanban-app">
         <button type="button" className="add-lane" onClick={this.handleAddLane}>
@@ -25,9 +25,9 @@ class KanbanBoard extends Component {
 
 export default connect(
   null,
-  { addLane },
+  { addLane }
 )(KanbanBoard);
 
 KanbanBoard.propTypes = {
-  addLane: PropTypes.func.isRequired,
+  addLane: PropTypes.func.isRequired
 };
