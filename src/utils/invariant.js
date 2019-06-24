@@ -21,7 +21,7 @@ const invariant = (condition, format, a, b, c, d, e, f) => {
       error.name = 'Invariant Violation';
     }
 
-    error.framesToPop = 1; // we don't care about invariant's own frame
+    error.framesToPop = 1; // we don't care about invariant'__tests__ own frame
     throw error;
   }
 };
