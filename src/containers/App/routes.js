@@ -11,11 +11,11 @@ import KanbanBoard from '../KanbanPage';
 import Signup from '../Auth/Signup/Signup';
 import Feature from '../Feature/Feature';
 import Signout from '../Auth/Signout/Signout';
-import PrivateRoute  from './ProtectedRoute';
+import PrivateRoute from './ProtectedRoute';
 import Signin from '../Auth/Signin/Signin';
 
 export const history = createBrowserHistory({
-  basename: process.env.PUBLIC_URL,
+  basename: process.env.PUBLIC_URL
 });
 
 export default function Routes() {
@@ -27,7 +27,7 @@ export default function Routes() {
         <Layout>
           <Switch>
             <Route exact path="/" component={App} />
-            <PrivateRoute path="/kanban" component={KanbanBoard} />
+            <Route path="/kanban" component={KanbanBoard} />
             <Route path="/signup" component={Signup} />
             <Route path="/signin" component={Signin} />
             <PrivateRoute path="/feature" component={Feature} />
