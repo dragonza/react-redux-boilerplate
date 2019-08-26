@@ -1,5 +1,5 @@
 import { Map, List } from 'immutable';
-import invariant from "./invariant";
+import invariant from './invariant';
 // import {isNumber} from "./is";
 
 function pathToArray(path) {
@@ -67,7 +67,7 @@ export function update(src, path, newVal) {
 // }
 
 export function remove(src, path, arrayOfValue, identifier = 'id') {
-  invariant(arrayOfValue.length, `Array cannot be empty`);
+  // invariant(arrayOfValue.length, `Array cannot be empty`);
   const pathArr = pathToArray(path);
   // return src.deleteIn([pathArr, String(arrayOfvalue[0])]);
   if (Map.isMap(src.getIn(pathArr))) {
@@ -82,7 +82,7 @@ export function remove(src, path, arrayOfValue, identifier = 'id') {
       if (Map.isMap(val)) {
         return !arrayOfValue.includes(val.get(identifier));
       }
-      return !arrayOfValue.includes(val)
+      return !arrayOfValue.includes(val);
     });
     return src.updateIn(pathArr, () => List(newNode));
   }
@@ -92,5 +92,5 @@ export function remove(src, path, arrayOfValue, identifier = 'id') {
 
 // TODO: implement later
 export function reaarange(src) {
-  return src
+  return src;
 }
